@@ -1,0 +1,118 @@
+﻿@model ReadingRecords.Models.BookGenreViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+<style>body{
+        background-color: #ffffff; 
+        color: #6495ED; 
+    }
+
+    .navbar {
+        background-color: #6495ED; 
+    }
+
+    .navbar-brand, .nav-link {
+        color: #000 !important;
+    }
+
+    .navbar-toggler-icon {
+        background-color: lightblue; 
+    }
+
+    footer {
+        background-color: #6495ED; 
+        color: #ffffff; 
+        text-align: center;
+        padding: 10px 0;
+    
+    }
+</style>
+
+<h1>My Library</h1>
+<p></p>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">
+        <i class="fa fa-plus"></i> Create New
+    </a>
+</p>
+
+<form asp-controller="Books" asp-action="Index" method="get">
+    <div class="input-group mb-3">
+        <select asp-for="BookGenre" asp-items="Model.Genres" class="form-control">
+            <option value="">All</option>
+        </select>
+        <input type="text" class="form-control" name="SearchString" placeholder="Title" aria-label="Title" aria-describedby="button-filter">
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="submit" id="button-filter">
+                <i class="fa fa-filter"></i> Filter
+            </button>
+        </div>
+    </div>
+</form>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr style="background-color: #ffffff; color:black ;">
+            <th>
+                @Html.DisplayNameFor(model => model.Books![0].ISBN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Books![0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Books![0].Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Books![0].PublicationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Books![0].Genre)
+            </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.Books![0].Price)
+            </th>
+            
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Books!)
+        {
+            <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ISBN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PublicationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre)
+            </td> 
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+              
+            <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">
+                        <i class="fa fa-edit"></i> Edit
+                    </a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">
+                        <i class="fa fa-info-circle"></i> Details
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">
+                        <i class="fa fa-trash"></i> Delete
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
